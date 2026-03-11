@@ -1,0 +1,16 @@
+flask
+langchain-core
+langchain-community
+langchain-text-splitters
+chromadb
+faiss-cpu
+gunicorn
+tiktoken
+markdown
+cachetools
+unstructured
+unstructured[local-inference]
+python-dotenv
+pandas
+pydantic>=2.0
+requests

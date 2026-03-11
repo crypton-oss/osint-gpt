@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OSINT-GPT - Result</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+
+      h1 a {
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+
+      h1 a:hover {
+        opacity: 0.8;
+      }
+
+      .content {
+        padding: 40px;
+      }
+
+      .question-section,
+      .answer-section {
+        margin-bottom: 30px;
+      }
+
+      .section-label {
+        font-size: 0.85em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #667eea;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .question-text {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+        color: #333;
+        font-size: 1.1em;
+        line-height: 1.6;
+      }
+
+      .answer-text {
+        background: #fafafa;
+        padding: 30px;
+        border-radius: 8px;
+        border-left: 4px solid #764ba2;
+        color: #333;
+        line-height: 1.8;
+        font-size: 0.95em;
+      }
+
+      .answer-text h1,
+      .answer-text h2,
+      .answer-text h3 {
+        color: #333;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .answer-text h1 {
+        font-size: 1.5em;
+      }
+
+      .answer-text h2 {
+        font-size: 1.3em;
+      }
+
+      .answer-text h3 {
+        font-size: 1.1em;
+      }
+
+      .answer-text p {
+        margin-bottom: 15px;
+      }
+
+      .answer-text ul,
+      .answer-text ol {
+        margin: 15px 0 15px 25px;
+      }
+
+      .answer-text li {
+        margin-bottom: 8px;
+      }
+
+      .answer-text code {
+        background: #e8e8e8;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        color: #d63384;
+      }
+
+      .answer-text pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 6px;
+        overflow-x: auto;
+        margin: 15px 0;
+        font-size: 0.85em;
+      }
+
+      .answer-text blockquote {
+        border-left: 4px solid #667eea;
+        padding-left: 15px;
+        margin: 15px 0;
+        color: #666;
+        font-style: italic;
+      }
+
+      .answer-text a {
+        color: #667eea;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .answer-text a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+      }
+
+      .footer {
+        background: #f5f5f5;
+        padding: 20px 40px;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .back-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      .back-button:active {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding: 20px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .footer {
+          padding: 15px 20px;
+        }
+
+        h1 {
+          font-size: 1.5em;
+        }
+
+        .answer-text {
+          font-size: 0.9em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1><a href="">OSINT-GPT</a></h1>
+        <p>AI-powered intelligence analysis</p>
+      </header>
+
+      <div class="content">
+        <div class="question-section">
+          <div class="section-label">❓ Your Question</div>
+          <div class="question-text">{{ question }}</div>
+        </div>
+
+        <div class="answer-section">
+          <div class="section-label">📊 Analysis Result</div>
+          <div class="answer-text">{{ answer_html|safe }}</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <a href="{{ url_for('upload_files') }}" class="back-button">← Back to Upload</a>
+      </div>
+    </div>
+  </body>
+</html>

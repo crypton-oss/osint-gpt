@@ -1,0 +1,120 @@
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║          VULNERABILITY & RISK ASSESSMENT REPORT                            ║
+║          Zaiflik va Xavf Baholash Hisoboti                                 ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📅 Hisobot sanasi: 2026-03-11 09:28:08
+🔐 Maqsad: Tizim xavfsizligini audit qilish va himoya tavsiyalari
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  SYSTEM VULNERABILITIES (Shodan Tahlili)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Umumiy Xavf Darajasi: [CRITICAL]
+Topilgan Zaiflik soni: 3
+
+
+[1] PORT 22 - SSH
+    ├─ Risk Level: 🔴 HIGH
+    ├─ Product: OpenSSH v7.4
+    ├─ Description: Remote access vulnerability potensiali
+    └─ Bartaraf etish oʻllari:
+        • SSH versiyasini eng oxirgi ga yangilang
+        • SSH key-based authentication yoqing, password-based auth o'chiring
+        • SSH portini standart bo'lmagan portga o'tkazib, port knocking qo'llanilsin
+        • Firewall orqali IP ruxsatini cheklang
+        • SSH brute-force himoyasini (fail2ban, denyhosts) o'rnating
+
+[2] PORT 3306 - MySQL
+    ├─ Risk Level: 🔴 CRITICAL
+    ├─ Product: MySQL v5.7.30
+    ├─ Description: Database unauthorized access
+    └─ Bartaraf etish oʻllari:
+        • MySQL 'root' parolini mustahkamlang
+        • MySQL bindni localhost ga cheklang (bind-address=127.0.0.1)
+        • MySQL remote access o'chiring, faqat local ulanishlarni ruxsat bering
+        • Database qo'shni foydalanuvchilar uchun maximal huquqlar cheklang
+
+[3] PORT 9200 - Elasticsearch
+    ├─ Risk Level: 🔴 HIGH
+    ├─ Product: Elasticsearch v7.0.0
+    ├─ Description: Unencrypted data transfer
+    └─ Bartaraf etish oʻllari:
+        • Elasticsearch X-Pack security yoqilsin
+        • Elasticsearch bindni localhost ga cheklang
+        • TLS/SSL encryption ishlatilsin
+        • Authentication va authorization konfiguratsiyasi
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2️⃣  DATA EXPOSURE RISK (IntelX Tahlili)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Umumiy Xavf Darajasi: [CRITICAL]
+Topilgan Leak soni: 2
+
+
+[1] EMAIL
+    ├─ Risk Level: 🔴 MEDIUM
+    ├─ Source: Breach Database
+    ├─ Date: 2024-01-15
+    ├─ Description: E-mail manzili sizib chiqib, phishing va spam xavfi ortadi
+    └─ Bartaraf etish oʻllari:
+        • Leak bulgan email uchun parolni DARHOL o'zgartiring
+        • Two-factor authentication (2FA) yoqilsin
+        • Dark web/breach monitoring xizmatiga ro'yxatdan o'tib, qayta urinishlarni kuzatib turing
+
+[2] PASSWORD_HASH
+    ├─ Risk Level: 🔴 CRITICAL
+    ├─ Source: Dark Web
+    ├─ Date: 2024-01-10
+    ├─ Description: Parol heshi leak buldi - brute-force atakka ayni bo'ladi
+    └─ Bartaraf etish oʻllari:
+        • Barcha parollarni DARHOL reset qiling
+        • Hash algoritm (bcrypt, Argon2) ishlatilsin
+        • Password manager ishlatilsin
+        • Credential stuffing himoyasi yoqilsin
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3️⃣  REPUTATION ANALYSIS (VirusTotal Tahlili)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IP Reputatsiyasi: SUSPICIOUS
+├─ Malicious Detections: 3
+├─ Suspicious Detections: 2
+├─ Undetected: 60
+└─ Bartaraf etish oʻllari:
+    • IP manzilni DARHOL ishlatishni to'xtating
+    • Tizimni zararli faoliyat bo'yicha tekshiring (forensic analysis)
+    • Antivirus/EDR vositalarini ishlatib sistem scan qiling
+    • Network traffic loggingni o'rganib, compromise indikatorlarini (IoC) izlang
+    • Incident response teamni jalb qiling
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 OVERALL SECURITY POSTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Overall Risk Level: [CRITICAL]
+
+Priority Actions:
+1. System zaifliklarini bartaraf etish (patching, port closure)
+2. Data exposure'larni tahlil qilish va parollarni reset qilish
+3. VirusTotal warnings bo'yicha incident response
+4. Regular security monitoring va threat hunting
+5. Security awareness training tavsiyasi
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  DISCLAIMER / EHTIROJ:
+Ushbu hisobot FAQAT authorized security audit uchun mo'ljallangan.
+Berilgan tavsiyalar tizimni xavfsizlashtirishga yo'naltirilgan.
+Hamma bartaraf etish oʻllari test muhitida avval sinab ko'rilsin.
+
+Generated on: 2026-03-11 09:28:08
